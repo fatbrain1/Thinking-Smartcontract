@@ -1,0 +1,52 @@
+name: Deploy Smart Contract
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Compile contracts
+      run: npx hardhat compile
+
+    - name: Deploy to testnet
+      env:
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        INFURA_PROJECT_ID: ${{ secrets.INFURA_PROJECT_ID }}
+      run: npx hardhat run scripts/deploy.js --network goerli
+
+3. Deployment Script (scripts/deploy.js)
+
+A simple script to deploy the ThinkingCoin.sol contract:
+
+const hre = require("hardhat");
+
+async function main() {
+  const ThinkingCoin = await hre.ethers.getContractFactory("ThinkingCoin");
+  const token = await ThinkingCoin.deploy("Thinking Coin", "THC");
+
+  await token.deployed();
+
+  console.log("Thinking Coin deployed to:", token.address);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
