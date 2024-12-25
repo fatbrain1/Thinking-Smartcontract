@@ -20,7 +20,7 @@ A collaborative space where contributors can:
 - Develop and finance projects collaboratively.  
 
 ### 🔄 **TCOIN Tokenomics**  
-- **Market Cap:** 100,000,000 TCOINs.  
+- **Market Cap:** 1,000,000,000 TCOINs.  
 - **Fair Distribution:**  
   - 50% for community contributors.  
   - Reserved shares for fundraisers, developers, and the key founder.  
